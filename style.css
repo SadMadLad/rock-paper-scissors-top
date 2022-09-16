@@ -1,0 +1,42 @@
+body {
+    font-family: 'Roboto', 'Lato', sans-serif;
+    background-color: coral;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.game {
+    display: flex;
+    flex-direction: column;
+}
+
+.choices {
+    display: flex;
+    justify-content: space-between;
+}
+
+.choice {
+    background-color: slateblue;
+    color: white;
+    font-size: 20px;
+    border: 0;
+    padding: 10px;
+    border-radius: 10px 5px;
+}
+
+.choice:hover {
+    background-color: purple;
+}
+
+.picks {
+    display: flex;
+    justify-content: space-between;
+}
+
+.refresh {
+    background-color: firebrick;
+    color: white;
+    font-weight: bolder;
+    padding: 10px;
+    margin: 10px;
+}

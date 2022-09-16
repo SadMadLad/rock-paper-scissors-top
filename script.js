@@ -2,6 +2,15 @@ console.log("Welcome to Rock-Paper-Scissors. Let's start");
 
 let options=['ROCK', 'PAPER', 'SCISSORS'];
 
+function askRounds() {
+    const rounds = prompt("Number of rounds?");
+    let r = parseInt(rounds);
+
+    if (isNaN(r)) r = 5;
+
+    return r;
+}
+
 function random_item(items)
 {
     return items[Math.floor(Math.random()*items.length)];
@@ -13,13 +22,9 @@ function getComputerChoice() {
 }
 
 function playerChoice() {
-    let playerChoice = prompt('Rock/Paper/Scissors?');
+    let playerChoice = 'Rock';
     playerChoice = playerChoice.toUpperCase();
     return playerChoice;
-}
-
-function validatePlayerChoice(choice) {
-    return options.includes(choice) ? true : false;
 }
 
 function playerWinCheck(computer_choice, player_choice){
@@ -37,45 +42,77 @@ function playerWinCheck(computer_choice, player_choice){
     }
 }
 
-function game(num_rounds){
-    console.log("Number of Rounds: ", num_rounds);
-    
-    let p="";
-    
-    let computer_wins = 0;
-    let player_wins = 0;
-    let ties = 0;
+function getPlayerChoice(e) {
+    const currentRounds = document.querySelector('.round');
+    const totalRounds = document.querySelector('.total-rounds');
 
-    for(let i=0; i<num_rounds; i++){
-        c=getComputerChoice();
-        while(validatePlayerChoice(p) == false){
-            p=playerChoice();
-        }
-        console.log("Computer's pick: ", c, "\nYour pick: ", p)
-        win = playerWinCheck(c, p);
-        console.log(win);
-        if (win == "tie"){
-            ties++;
-        }
-        else if (win == "win"){
-            player_wins++;
-        }
-        else {
-            computer_wins++;
-        }
-        p="";
-    }
+    const ties = document.querySelector('.ties');
+    const playerScore = document.querySelector('.player-score');
+    const computerScore = document.querySelector('.computer-score');
 
-    console.log("Summary: \nRounds Computer Won: ", computer_wins, "\nRounds You Won: ", player_wins, "\nTies: ", ties);
-    if (player_wins === computer_wins){
-        console.log("It's a tie!");
-    }
-    else if(player_wins > computer_wins){
-        console.log("You Won!"); 
-    }
-    else {
-        console.log("You Lost!");
+    tS = parseInt(ties.textContent);
+    pS = parseInt(playerScore.textContent);
+    cS = parseInt(computerScore.textContent);
+
+    let cR = parseInt(currentRounds.textContent);
+    let tR = parseInt(totalRounds.textContent);
+
+
+    if(cR >= tR) {
+        return;
+    };
+
+    cR++;
+
+    const playerPick = document.querySelector('.player-pick');
+    const computerPick = document.querySelector('.computer-pick');
+
+    const pP = e.target.getAttribute('choice');
+    const cP = getComputerChoice();
+
+    //Updating picks
+    playerPick.textContent = pP;
+    computerPick.textContent = cP;
+
+    //Updating currentRounds
+    currentRounds.textContent = cR; 
+    console.log(currentRounds)
+
+    //Who won the round
+    const roundResult = document.querySelector('.round-result');
+    score = playerWinCheck(cP, pP);
+    roundResult.textContent = score;
+    
+    //Updating scores
+    if (score === 'tie') {tS++}
+    else if (score === 'lose') {cS++}
+    else {pS++};
+
+    currentRounds.textContent = cR;
+    playerScore.textContent = pS;
+    computerScore.textContent = cS;
+    ties.textContent = tS;
+    
+    //Printing summary when game finishes
+    if (cR >= tR){
+        const summary = document.querySelector('.game-summary');
+        if (pS == cS) {summary.textContent="It's a tie!"}
+        else if (pS > cS) {summary.textContent="You won!"}
+        else {summary.textContent="You Lost!"}
     }
 }
 
-game(10);
+function game(){
+
+    const totalRounds = askRounds();
+    //Setting Total Rounds
+    const totalRoundsSpan = document.querySelector('.total-rounds');
+    totalRoundsSpan.textContent = totalRounds;
+    //Setting Up Listener for Choices
+    const choiceButtons = document.querySelectorAll('.choice');
+    choiceButtons.forEach(
+        button => button.addEventListener('click', getPlayerChoice)
+    );
+}
+
+game();

@@ -1,12 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8"/>
         <title>Rock - Paper - Scissors</title>
+        <link rel="stylesheet" href="style.css"/>
     </head>
 
     <body>
-        <h3>The game is being played in console. Check that out.</h3>
+        <div class="summary">
+            <h2>Summary</h2>
+            <p>Total Rounds: <b><span class="total-rounds"></span></b></p>
+            <p>Round: <b><span class="round">0</span></b></p>
+            <p>Player's Score: <b><span class="player-score">0</span></b></p>
+            <p>Computer's Score: <b><span class="computer-score">0</span></b></p>
+            <p>Ties: <b><span class="ties">0</span></b></p>
+            <p class="game-summary"></p>
+        </div>
+        <div class="game">
+            <h1>* Rock, Paper, Scissors *</h1>
+            <div class="choices">
+                <button class="choice" choice="ROCK">Rock</button>
+                <button class="choice" choice="PAPER">Paper</button>
+                <button class="choice" choice="SCISSORS">Scissors</button>
+            </div>
+            <div class="picks">
+                <p>Your pick: <span class="player-pick"></span></p>
+                <p>Computer's pick: <span class="computer-pick"></span></p>
+            </div>
+            <p>Round result: <b><span class="round-result"></span></b></p>
+            <button class="refresh" onclick="window.location.reload()">Start Again</button>
+        </div>
         <script src="./script.js"></script>
     </body>
 </html>
